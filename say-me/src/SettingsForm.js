@@ -17,21 +17,34 @@ const SettingsForm = ({ settings, onSettingsUpdate, onSaveSettings }) => {
   const [popupInfo, setPopupInfo] = useState(null);
 
   useEffect(() => {
-    setPlayersNumber(settings.playersNumber.default);
-    setQuestionsNumber(settings.questionsNumber.default);
-    setSecondsLimit(settings.secondsLimit.default);
+    setPlayersNumber(
+      localStorage.getItem("playersNumber") || settings.playersNumber.default
+    );
+    setQuestionsNumber(
+      localStorage.getItem("questionsNumber") ||
+        settings.questionsNumber.default
+    );
+    setSecondsLimit(
+      localStorage.getItem("secondsLimit") || settings.secondsLimit.default
+    );
   }, [settings]);
 
   const handlePlayersNumberChange = (event) => {
-    setPlayersNumber(event.target.value);
+    const value = event.target.value;
+    setPlayersNumber(value);
+    localStorage.setItem("playersNumber", value);
   };
 
   const handleQuestionsNumberChange = (event) => {
-    setQuestionsNumber(event.target.value);
+    const value = event.target.value;
+    setQuestionsNumber(value);
+    localStorage.setItem("questionsNumber", value);
   };
 
   const handleSecondsLimitChange = (event) => {
-    setSecondsLimit(event.target.value);
+    const value = event.target.value;
+    setSecondsLimit(value);
+    localStorage.setItem("secondsLimit", value);
   };
 
   const handleFormSubmit = (event) => {
@@ -52,8 +65,8 @@ const SettingsForm = ({ settings, onSettingsUpdate, onSaveSettings }) => {
         default: parseInt(secondsLimit),
       },
     };
-    onSettingsUpdate(updatedSettings); // Wywołanie funkcji przekazanej przez propsy do zaktualizowania ustawień w stanie nadrzędnym
-    onSaveSettings(updatedSettings); // Wywołanie funkcji przekazanej przez propsy do zapisu ustawień
+    onSettingsUpdate(updatedSettings);
+    onSaveSettings(updatedSettings);
     setPopupInfo({ message: "Ustawienia zapisane.", className: "primary" });
   };
 
@@ -63,44 +76,60 @@ const SettingsForm = ({ settings, onSettingsUpdate, onSaveSettings }) => {
 
   return (
     <form className="mt-4" onSubmit={handleFormSubmit}>
-      <div className="form-group">
-        <label>Liczba graczy:</label>
-        <input
-          type="range"
-          className="form-control-range"
-          min={appSettings.playersNumber.min}
-          max={appSettings.playersNumber.max}
-          value={playersNumber}
-          onChange={handlePlayersNumberChange}
-        />
-        <span>{playersNumber}</span>
-      </div>
-      <div className="form-group">
-        <label>Liczba pytań:</label>
-        <input
-          type="range"
-          className="form-control-range"
-          min={appSettings.questionsNumber.min}
-          max={appSettings.questionsNumber.max}
-          value={questionsNumber}
-          onChange={handleQuestionsNumberChange}
-        />
-        <span>{questionsNumber}</span>
-      </div>
-      <div className="form-group">
-        <label>Limit czasu (w sekundach):</label>
-        <input
-          type="number"
-          className="form-control"
-          min={appSettings.secondsLimit.min}
-          value={secondsLimit}
-          onChange={handleSecondsLimitChange}
-        />
-      </div>
-      <div className="d-flex justify-content-end">
-        <button type="submit" className="btn btn-primary">
-          Zapisz ustawienia
-        </button>
+      <h4 className="mb-4">Ustawienia:</h4>
+      <div className="list-group">
+        <div className="list-group-item">
+          <div className="input-group mb-3">
+            <div className="input-group-prepend">
+              <span className="input-group-text">Liczba graczy</span>
+            </div>
+            <input
+              type="range"
+              className="form-control"
+              min={appSettings.playersNumber.min}
+              max={appSettings.playersNumber.max}
+              value={playersNumber}
+              onChange={handlePlayersNumberChange}
+            />
+            <div className="input-group-append">
+              <span className="input-group-text">{playersNumber}</span>
+            </div>
+          </div>
+        </div>
+        <div className="list-group-item">
+          <div className="input-group mb-3">
+            <div className="input-group-prepend">
+              <span className="input-group-text">Liczba pytań</span>
+            </div>
+            <input
+              type="range"
+              className="form-control"
+              min={appSettings.questionsNumber.min}
+              max={appSettings.questionsNumber.max}
+              value={questionsNumber}
+              onChange={handleQuestionsNumberChange}
+            />
+            <div className="input-group-append">
+              <span className="input-group-text">{questionsNumber}</span>
+            </div>
+          </div>
+        </div>
+        <div className="list-group-item">
+          <div className="input-group mb-3">
+            <div className="input-group-prepend">
+              <span className="input-group-text">
+                Limit czasu (w sekundach)
+              </span>
+            </div>
+            <input
+              type="number"
+              className="form-control"
+              min={appSettings.secondsLimit.min}
+              value={secondsLimit}
+              onChange={handleSecondsLimitChange}
+            />
+          </div>
+        </div>
       </div>
       {popupInfo && (
         <Popup

@@ -143,17 +143,6 @@ const ConfigurationMode = () => {
                 </a>
                 <hr />
                 <ul className="nav nav-pills flex-column mb-auto">
-                  <li className="nav-item">
-                    <button
-                      className="btn btn-primary"
-                      onClick={handleEditSettings}
-                    >
-                      {showSettingsForm
-                        ? "Schowaj formularz"
-                        : "Edytuj ustawienia"}
-                    </button>
-                  </li>
-                  <hr />
                   <li>
                     <button
                       className="btn btn-primary"
@@ -212,30 +201,13 @@ const ConfigurationMode = () => {
             </div>
             <div className="col-md-9 ms-sm-auto col-lg-10 px-md-4 ">
               <div>
-                <h4>Ustawienia:</h4>
-                <p>
-                  Liczba graczy: {settings.playersNumber.min} -{" "}
-                  {settings.playersNumber.max} (ustawione:{" "}
-                  {settings.playersNumber.default})
-                </p>
-                <p>
-                  Liczba pytań: {settings.questionsNumber.min} -{" "}
-                  {settings.questionsNumber.max} (ustawione:{" "}
-                  {settings.questionsNumber.default})
-                </p>
-                <p>
-                  Limit czasu (w sekundach): {settings.secondsLimit.min}{" "}
-                  (ustawione: {settings.secondsLimit.default})
-                </p>
-              </div>
-
-              {showSettingsForm && (
                 <SettingsForm
                   settings={settings}
                   onSettingsUpdate={handleSettingsUpdate}
                   onSaveSettings={handleSaveSettings}
                 />
-              )}
+              </div>
+
               <div className="d-flex mt-3"></div>
               {showImportForm && (
                 <div>
@@ -249,11 +221,16 @@ const ConfigurationMode = () => {
               )}
               {storedData && isDataDisplayed && (
                 <div className="mt-4">
-                  <h4>Wyświetlone pytania:</h4>
-                  <pre>{JSON.stringify(storedData, null, 2)}</pre>
+                  <div className="card">
+                    <div className="card-body">
+                      <h4 className="card-title">Wyświetlone pytania:</h4>
+                      <pre className="card-text">
+                        {JSON.stringify(storedData, null, 2)}
+                      </pre>
+                    </div>
+                  </div>
                 </div>
               )}
-              {/* {message && <div className="mt-4">{message}</div>} */}
               {popupInfo && (
                 <Popup
                   message={popupInfo.message}

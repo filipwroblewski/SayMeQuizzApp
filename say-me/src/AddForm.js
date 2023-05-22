@@ -55,32 +55,38 @@ const AddForm = ({ onAddQuestion }) => {
       <h4>Dodaj pytanie i odpowiedź</h4>
       <div className="form-group">
         <label>Kategoria:</label>
-        <input
-          type="text"
-          className="form-control"
-          value={category}
-          onChange={handleCategoryChange}
-        />
+        <div className="input-group">
+          <input
+            type="text"
+            className="form-control"
+            value={category}
+            onChange={handleCategoryChange}
+          />
+        </div>
       </div>
       <div className="form-group">
         <label>Pytanie:</label>
-        <input
-          type="text"
-          className="form-control"
-          value={question}
-          onChange={handleQuestionChange}
-        />
+        <div className="input-group">
+          <input
+            type="text"
+            className="form-control"
+            value={question}
+            onChange={handleQuestionChange}
+          />
+        </div>
       </div>
       <div className="form-group">
         <label>Odpowiedzi:</label>
+        <br />
         {answers.map((answer, index) => (
-          <input
-            key={index}
-            type="text"
-            className="form-control"
-            value={answer}
-            onChange={(event) => handleAnswerChange(index, event)}
-          />
+          <div className="input-group" key={index}>
+            <input
+              type="text"
+              className="form-control"
+              value={answer}
+              onChange={(event) => handleAnswerChange(index, event)}
+            />
+          </div>
         ))}
         <button
           className="btn btn-secondary mt-2"
@@ -91,14 +97,16 @@ const AddForm = ({ onAddQuestion }) => {
       </div>
       <div className="form-group">
         <label>Poprawne odpowiedzi:</label>
+        <br />
         {correctAnswers.map((answer, index) => (
-          <input
-            key={index}
-            type="text"
-            className="form-control"
-            value={answer}
-            onChange={(event) => handleCorrectAnswerChange(index, event)}
-          />
+          <div className="input-group" key={index}>
+            <input
+              type="text"
+              className="form-control"
+              value={answer}
+              onChange={(event) => handleCorrectAnswerChange(index, event)}
+            />
+          </div>
         ))}
         <button
           className="btn btn-secondary mt-2"
