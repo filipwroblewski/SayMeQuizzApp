@@ -1,9 +1,9 @@
-// ConfigurationMode.js
-
 import React, { useState } from "react";
 import ImportForm from "./ImportForm";
 import AddForm from "./AddForm";
 import { loadData, saveData, clearLocalStorage } from "./DataStorage";
+import appSettings from "./appsettings";
+import SettingsForm from "./SettingsForm";
 
 const ConfigurationMode = () => {
   const [showImportForm, setShowImportForm] = useState(false);
@@ -11,6 +11,13 @@ const ConfigurationMode = () => {
   const [storedData, setStoredData] = useState(null);
   const [isDataDisplayed, setIsDataDisplayed] = useState(false);
   const [message, setMessage] = useState("");
+  const [showSettingsForm, setShowSettingsForm] = useState(false);
+  const [settingsUpdated, setSettingsUpdated] = useState(false);
+  const [settings, setSettings] = useState(appSettings);
+
+  const handleEditSettings = () => {
+    setShowSettingsForm(!showSettingsForm);
+  };
 
   const handleImportClick = () => {
     setShowImportForm(!showImportForm);
@@ -41,7 +48,6 @@ const ConfigurationMode = () => {
 
   const handleAddQuestion = (newQuestion) => {
     console.log("Dodane pytanie:", newQuestion);
-    // Add your logic to handle adding a question
     setMessage("Pytanie zostało dodane");
   };
 
@@ -72,9 +78,49 @@ const ConfigurationMode = () => {
     }
   };
 
+  const handleSettingsUpdate = (updatedSettings) => {
+    setSettings(updatedSettings); // Aktualizacja ustawień w stanie
+    setSettingsUpdated(true);
+  };
+
+  const handleSaveSettings = (updatedSettings) => {
+    setSettings(updatedSettings); // Aktualizacja ustawień w stanie
+    setSettingsUpdated(false);
+    setMessage("Ustawienia zostały zapisane");
+  };
+
   return (
     <div className="container">
       <h2 className="mt-4">Tryb konfiguracji</h2>
+
+      <div>
+        <h4>Ustawienia:</h4>
+        <p>
+          Liczba graczy: {settings.playersNumber.min} -{" "}
+          {settings.playersNumber.max} (ustawione:{" "}
+          {settings.playersNumber.default})
+        </p>
+        <p>
+          Liczba pytań: {settings.questionsNumber.min} -{" "}
+          {settings.questionsNumber.max} (ustawione:{" "}
+          {settings.questionsNumber.default})
+        </p>
+        <p>
+          Limit czasu (w sekundach): {settings.secondsLimit.min} (ustawione:{" "}
+          {settings.secondsLimit.default})
+        </p>
+      </div>
+      <button className="btn btn-primary mt-3" onClick={handleEditSettings}>
+        {showSettingsForm ? "Schowaj formularz" : "Edytuj ustawienia"}
+      </button>
+      {showSettingsForm && (
+        <SettingsForm
+          settings={settings}
+          onSettingsUpdate={handleSettingsUpdate}
+          onSaveSettings={handleSaveSettings}
+        />
+      )}
+
       <div className="d-flex mt-3">
         <button className="btn btn-primary" onClick={handleImportClick}>
           {showImportForm ? "Schowaj formularz importu" : "Import zbiorczy"}
