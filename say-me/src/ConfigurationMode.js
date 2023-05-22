@@ -5,19 +5,20 @@ import { loadData, saveData, clearLocalStorage } from "./DataStorage";
 import appSettings from "./appsettings";
 import SettingsForm from "./SettingsForm";
 import ShowMode from "./ShowMode";
+import Popup from "./Popup";
 
 const ConfigurationMode = () => {
   const [showImportForm, setShowImportForm] = useState(false);
   const [showAddForm, setShowAddForm] = useState(false);
   const [storedData, setStoredData] = useState(null);
   const [isDataDisplayed, setIsDataDisplayed] = useState(false);
-  const [message, setMessage] = useState("");
   const [showSettingsForm, setShowSettingsForm] = useState(false);
   const [settingsUpdated, setSettingsUpdated] = useState(false);
   const [settings, setSettings] = useState(appSettings);
   const [showMode, setShowMode] = useState(false);
   const [isPresentationMode, setIsPresentationMode] = useState(false);
   const [isConfigurationMode, setIsConfigurationMode] = useState(true);
+  const [popupInfo, setPopupInfo] = useState(null);
 
   const handleEditSettings = () => {
     setShowSettingsForm(!showSettingsForm);
@@ -27,14 +28,12 @@ const ConfigurationMode = () => {
     setShowImportForm(!showImportForm);
     setShowAddForm(false);
     setIsDataDisplayed(false);
-    setMessage("");
   };
 
   const handleAddClick = () => {
     setShowImportForm(false);
     setShowAddForm(!showAddForm);
     setIsDataDisplayed(false);
-    setMessage("");
   };
 
   const handleShowModeClick = () => {
@@ -52,12 +51,18 @@ const ConfigurationMode = () => {
     clearLocalStorage();
     setStoredData(null);
     setIsDataDisplayed(false);
-    setMessage("Pamięć lokalna została zresetowana");
+    setPopupInfo({
+      message: "Pamięć lokalna została zresetowana",
+      className: "danger",
+    });
   };
 
   const handleAddQuestion = (newQuestion) => {
     console.log("Dodane pytanie:", newQuestion);
-    setMessage("Pytanie zostało dodane");
+    setPopupInfo({
+      message: "Pytanie zostało dodane",
+      className: "primary",
+    });
   };
 
   const handleExportData = () => {
@@ -70,6 +75,14 @@ const ConfigurationMode = () => {
     a.download = "questions.json";
     a.click();
     URL.revokeObjectURL(url);
+    setPopupInfo({
+      message: "Dane zostały wyeksportowane do pliku questions.json",
+      className: "primary",
+    });
+  };
+
+  const handlePopupClose = () => {
+    setPopupInfo(null);
   };
 
   const handleImportData = (importedData) => {
@@ -79,11 +92,17 @@ const ConfigurationMode = () => {
         saveData("questions", parsedData);
         setStoredData(parsedData);
         setIsDataDisplayed(false);
-        setMessage("Poprawnie załadowano dane");
+        setPopupInfo({
+          message: "Poprawnie załadowano dane",
+          className: "success",
+        });
       }
     } catch (error) {
       console.error("Błąd ładowania danych:", error);
-      setMessage("Błąd ładowania danych. Spróbuj ponownie");
+      setPopupInfo({
+        message: "Błąd ładowania danych. Spróbuj ponownie",
+        className: "danger",
+      });
     }
   };
 
@@ -95,7 +114,11 @@ const ConfigurationMode = () => {
   const handleSaveSettings = (updatedSettings) => {
     setSettings(updatedSettings);
     setSettingsUpdated(false);
-    setMessage("Ustawienia zostały zapisane");
+    const message = `Ustawienia zostały zapisane (graczy: ${updatedSettings.questionsNumber.default}, pytań: ${updatedSettings.questionsNumber.min}, czas: ${updatedSettings.secondsLimit.min}s)`;
+    setPopupInfo({
+      message,
+      className: "primary",
+    });
   };
 
   const handleToggleConfigurationMode = () => {
@@ -230,7 +253,14 @@ const ConfigurationMode = () => {
                   <pre>{JSON.stringify(storedData, null, 2)}</pre>
                 </div>
               )}
-              {message && <div className="mt-4">{message}</div>}
+              {/* {message && <div className="mt-4">{message}</div>} */}
+              {popupInfo && (
+                <Popup
+                  message={popupInfo.message}
+                  className={popupInfo.className}
+                  onClose={handlePopupClose}
+                />
+              )}
             </div>
           </div>
         </>

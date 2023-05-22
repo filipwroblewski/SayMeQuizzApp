@@ -2,9 +2,11 @@
 
 import React, { useState } from "react";
 import { saveData, loadData } from "./DataStorage";
+import Popup from "./Popup";
 
 const ImportForm = () => {
   const [jsonData, setJsonData] = useState("");
+  const [popupInfo, setPopupInfo] = useState(null);
 
   const handleInputChange = (event) => {
     setJsonData(event.target.value);
@@ -15,12 +17,20 @@ const ImportForm = () => {
       const parsedData = JSON.parse(jsonData);
       console.log("Załadowane dane:", parsedData);
 
-      const existingData = loadData("questions") || []; // Retrieve existing "questions" data
-      const updatedData = [...existingData, ...parsedData]; // Merge existing data with parsed data
+      const existingData = loadData("questions") || [];
+      const updatedData = [...existingData, ...parsedData];
 
-      saveData("questions", updatedData); // Save the updated data
+      saveData("questions", updatedData);
+      setPopupInfo({
+        message: "Poprawnie załadowano dane.",
+        className: "success",
+      });
     } catch (error) {
       console.error("Błąd wczytywania danych JSON:", error);
+      setPopupInfo({
+        message: "Błąd wczytywania danych JSON. Spróbuj ponownie.",
+        className: "error",
+      });
     }
   };
 
@@ -42,6 +52,10 @@ const ImportForm = () => {
   const handleFormSubmit = (event) => {
     event.preventDefault();
     handleLoadData();
+  };
+
+  const handlePopupClose = () => {
+    setPopupInfo(null);
   };
 
   return (
@@ -75,6 +89,14 @@ const ImportForm = () => {
           </button>
         </div>
       </form>
+
+      {popupInfo && (
+        <Popup
+          message={popupInfo.message}
+          className={popupInfo.className}
+          onClose={handlePopupClose}
+        />
+      )}
     </div>
   );
 };

@@ -1,6 +1,8 @@
 // SettingsForm.js
+
 import React, { useState, useEffect } from "react";
 import appSettings from "./appsettings";
+import Popup from "./Popup";
 
 const SettingsForm = ({ settings, onSettingsUpdate, onSaveSettings }) => {
   const [playersNumber, setPlayersNumber] = useState(
@@ -12,6 +14,7 @@ const SettingsForm = ({ settings, onSettingsUpdate, onSaveSettings }) => {
   const [secondsLimit, setSecondsLimit] = useState(
     settings.secondsLimit.default
   );
+  const [popupInfo, setPopupInfo] = useState(null);
 
   useEffect(() => {
     setPlayersNumber(settings.playersNumber.default);
@@ -51,6 +54,11 @@ const SettingsForm = ({ settings, onSettingsUpdate, onSaveSettings }) => {
     };
     onSettingsUpdate(updatedSettings); // Wywołanie funkcji przekazanej przez propsy do zaktualizowania ustawień w stanie nadrzędnym
     onSaveSettings(updatedSettings); // Wywołanie funkcji przekazanej przez propsy do zapisu ustawień
+    setPopupInfo({ message: "Ustawienia zapisane.", className: "primary" });
+  };
+
+  const handlePopupClose = () => {
+    setPopupInfo(null);
   };
 
   return (
@@ -94,6 +102,13 @@ const SettingsForm = ({ settings, onSettingsUpdate, onSaveSettings }) => {
           Zapisz ustawienia
         </button>
       </div>
+      {popupInfo && (
+        <Popup
+          message={popupInfo.message}
+          className={popupInfo.className}
+          onClose={handlePopupClose}
+        />
+      )}
     </form>
   );
 };
