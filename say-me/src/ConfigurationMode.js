@@ -12,17 +12,10 @@ const ConfigurationMode = () => {
   const [showAddForm, setShowAddForm] = useState(false);
   const [storedData, setStoredData] = useState(null);
   const [isDataDisplayed, setIsDataDisplayed] = useState(false);
-  const [showSettingsForm, setShowSettingsForm] = useState(false);
   const [settingsUpdated, setSettingsUpdated] = useState(false);
   const [settings, setSettings] = useState(appSettings);
-  const [showMode, setShowMode] = useState(false);
-  const [isPresentationMode, setIsPresentationMode] = useState(false);
   const [isConfigurationMode, setIsConfigurationMode] = useState(true);
   const [popupInfo, setPopupInfo] = useState(null);
-
-  const handleEditSettings = () => {
-    setShowSettingsForm(!showSettingsForm);
-  };
 
   const handleImportClick = () => {
     setShowImportForm(!showImportForm);
@@ -36,23 +29,29 @@ const ConfigurationMode = () => {
     setIsDataDisplayed(false);
   };
 
-  const handleShowModeClick = () => {
-    setShowMode(true);
-    setIsPresentationMode(true);
-  };
-
   const handleDisplayData = () => {
     const data = loadData("questions");
-    setStoredData(data);
-    setIsDataDisplayed(!isDataDisplayed);
+    if (!data || data.length === 0) {
+      setPopupInfo({
+        message: "Brak dostępnych pytań",
+        className: "danger",
+      });
+    } else {
+      setStoredData(data);
+      setIsDataDisplayed(!isDataDisplayed);
+      setPopupInfo({
+        message: `Aktualnie jest ${data.length} pytań.`,
+        className: "primary",
+      });
+    }
   };
 
   const handleClearLocalStorage = () => {
-    clearLocalStorage();
+    localStorage.removeItem("questions");
     setStoredData(null);
     setIsDataDisplayed(false);
     setPopupInfo({
-      message: "Pamięć lokalna została zresetowana",
+      message: "Pytania zostały usunięte z pamięci lokalnej.",
       className: "danger",
     });
   };
@@ -109,16 +108,7 @@ const ConfigurationMode = () => {
   const handleSettingsUpdate = (updatedSettings) => {
     setSettings(updatedSettings);
     setSettingsUpdated(true);
-  };
-
-  const handleSaveSettings = (updatedSettings) => {
-    setSettings(updatedSettings);
-    setSettingsUpdated(false);
-    const message = `Ustawienia zostały zapisane (graczy: ${updatedSettings.questionsNumber.default}, pytań: ${updatedSettings.questionsNumber.min}, czas: ${updatedSettings.secondsLimit.min}s)`;
-    setPopupInfo({
-      message,
-      className: "primary",
-    });
+    settingsUpdated(true);
   };
 
   const handleToggleConfigurationMode = () => {
@@ -204,7 +194,6 @@ const ConfigurationMode = () => {
                 <SettingsForm
                   settings={settings}
                   onSettingsUpdate={handleSettingsUpdate}
-                  onSaveSettings={handleSaveSettings}
                 />
               </div>
 

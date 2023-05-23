@@ -17,16 +17,25 @@ const SettingsForm = ({ settings, onSettingsUpdate, onSaveSettings }) => {
   const [popupInfo, setPopupInfo] = useState(null);
 
   useEffect(() => {
-    setPlayersNumber(
-      localStorage.getItem("playersNumber") || settings.playersNumber.default
-    );
-    setQuestionsNumber(
-      localStorage.getItem("questionsNumber") ||
-        settings.questionsNumber.default
-    );
-    setSecondsLimit(
-      localStorage.getItem("secondsLimit") || settings.secondsLimit.default
-    );
+    const defaultPlayersNumber = settings.playersNumber.default;
+    const defaultQuestionsNumber = settings.questionsNumber.default;
+    const defaultSecondsLimit = settings.secondsLimit.default;
+
+    const storedPlayersNumber = localStorage.getItem("playersNumber");
+    const storedQuestionsNumber = localStorage.getItem("questionsNumber");
+    const storedSecondsLimit = localStorage.getItem("secondsLimit");
+
+    const playersNumber = storedPlayersNumber || defaultPlayersNumber;
+    const questionsNumber = storedQuestionsNumber || defaultQuestionsNumber;
+    const secondsLimit = storedSecondsLimit || defaultSecondsLimit;
+
+    setPlayersNumber(playersNumber);
+    setQuestionsNumber(questionsNumber);
+    setSecondsLimit(secondsLimit);
+
+    localStorage.setItem("playersNumber", playersNumber);
+    localStorage.setItem("questionsNumber", questionsNumber);
+    localStorage.setItem("secondsLimit", secondsLimit);
   }, [settings]);
 
   const handlePlayersNumberChange = (event) => {
@@ -47,35 +56,12 @@ const SettingsForm = ({ settings, onSettingsUpdate, onSaveSettings }) => {
     localStorage.setItem("secondsLimit", value);
   };
 
-  const handleFormSubmit = (event) => {
-    event.preventDefault();
-    const updatedSettings = {
-      playersNumber: {
-        min: appSettings.playersNumber.min,
-        max: appSettings.playersNumber.max,
-        default: parseInt(playersNumber),
-      },
-      questionsNumber: {
-        min: appSettings.questionsNumber.min,
-        max: appSettings.questionsNumber.max,
-        default: parseInt(questionsNumber),
-      },
-      secondsLimit: {
-        min: appSettings.secondsLimit.min,
-        default: parseInt(secondsLimit),
-      },
-    };
-    onSettingsUpdate(updatedSettings);
-    onSaveSettings(updatedSettings);
-    setPopupInfo({ message: "Ustawienia zapisane.", className: "primary" });
-  };
-
   const handlePopupClose = () => {
     setPopupInfo(null);
   };
 
   return (
-    <form className="mt-4" onSubmit={handleFormSubmit}>
+    <form className="mt-4">
       <h4 className="mb-4">Ustawienia:</h4>
       <div className="list-group">
         <div className="list-group-item">

@@ -39,10 +39,10 @@ const AddForm = ({ onAddQuestion }) => {
 
     onAddQuestion(newQuestion);
 
-    const existingData = loadData("questions") || []; // Retrieve existing "questions" data
-    const updatedData = [...existingData, newQuestion]; // Merge existing data with new question
+    const existingData = loadData("questions") || [];
+    const updatedData = [...existingData, newQuestion];
 
-    saveData("questions", updatedData); // Save the updated data
+    saveData("questions", updatedData);
 
     setCategory("");
     setQuestion("");

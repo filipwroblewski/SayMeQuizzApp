@@ -1,12 +1,12 @@
 // ImportForm.js
-
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { saveData, loadData } from "./DataStorage";
 import Popup from "./Popup";
 
 const ImportForm = () => {
   const [jsonData, setJsonData] = useState("");
   const [popupInfo, setPopupInfo] = useState(null);
+  const fileInputRef = useRef(null);
 
   const handleInputChange = (event) => {
     setJsonData(event.target.value);
@@ -14,6 +14,10 @@ const ImportForm = () => {
 
   const handleLoadData = () => {
     try {
+      if (!jsonData) {
+        throw new Error("Wprowadź dane JSON.");
+      }
+
       const parsedData = JSON.parse(jsonData);
       console.log("Załadowane dane:", parsedData);
 
@@ -28,7 +32,7 @@ const ImportForm = () => {
     } catch (error) {
       console.error("Błąd wczytywania danych JSON:", error);
       setPopupInfo({
-        message: "Błąd wczytywania danych JSON. Spróbuj ponownie.",
+        message: `Błąd wczytywania danych JSON: ${error.message}. Spróbuj ponownie.`,
         className: "error",
       });
     }
@@ -45,8 +49,7 @@ const ImportForm = () => {
   };
 
   const handleFileLoad = () => {
-    const fileInput = document.getElementById("fileInput");
-    fileInput.click();
+    fileInputRef.current.click();
   };
 
   const handleFormSubmit = (event) => {
@@ -66,6 +69,7 @@ const ImportForm = () => {
         </button>
       </div>
       <input
+        ref={fileInputRef}
         id="fileInput"
         type="file"
         accept=".json"
