@@ -1,0 +1,70 @@
+[{
+"kategoria": "Stolice",
+"pytanie": "Jaka jest stolica Polski?",
+"odpowiedzi": [],
+"poprawneOdpowiedzi": ["Warszawa"]
+}
+
+{
+"kategoria": "Stolice",
+"pytanie": "Jaka jest stolica Francji?",
+"odpowiedzi": [],
+"poprawneOdpowiedzi": ["Paryż"]
+}
+
+{
+"kategoria": "Stolice",
+"pytanie": "Jaka jest stolica Włoch?",
+"odpowiedzi": ["A. Rzym", "B. Wenecja", "C. Florencja", "D. Mediolan"],
+"poprawneOdpowiedzi": ["A. Rzym"]
+}
+
+{
+"kategoria": "Stolice",
+"pytanie": "Jaka jest stolica Hiszpanii?",
+"odpowiedzi": [],
+"poprawneOdpowiedzi": ["Madryt"]
+}
+
+{
+"kategoria": "Stolice",
+"pytanie": "Jaka jest stolica Niemiec?",
+"odpowiedzi": ["A. Berlin", "B. Monachium", "C. Frankfurt", "D. Hamburg"],
+"poprawneOdpowiedzi": ["A. Berlin"]
+}
+
+{
+"kategoria": "Stolice",
+"pytanie": "Jaka jest stolica Wielkiej Brytanii?",
+"odpowiedzi": [],
+"poprawneOdpowiedzi": ["Londyn"]
+}
+
+{
+"kategoria": "Stolice",
+"pytanie": "Jaka jest stolica Rosji?",
+"odpowiedzi": ["A. Moskwa", "B. Petersburg", "C. Soczi", "D. Jekaterynburg"],
+"poprawneOdpowiedzi": ["A. Moskwa"]
+}
+
+{
+"kategoria": "Stolice",
+"pytanie": "Jaka jest stolica Kanady?",
+"odpowiedzi": [],
+"poprawneOdpowiedzi": ["Ottawa"]
+}
+
+{
+"kategoria": "Stolice",
+"pytanie": "Jaka jest stolica Chin?",
+"odpowiedzi": ["A. Pekin", "B. Szanghaj", "C. Hongkong", "D. Guangzhou"],
+"poprawneOdpowiedzi": ["A. Pekin"]
+}
+
+{
+"kategoria": "Stolice",
+"pytanie": "Jaka jest stolica Australii?",
+"odpowiedzi": [],
+"poprawneOdpowiedzi": ["Canberra"]
+}
+]
