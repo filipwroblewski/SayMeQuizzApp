@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Popup from "./Popup";
 
-const SettingsForm = ({ settings, onSettingsUpdate, onSaveSettings }) => {
+const SettingsForm = ({ settings }) => {
   const [playersNumber, setPlayersNumber] = useState(
     settings.playersNumber.default
   );

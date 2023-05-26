@@ -10,6 +10,9 @@ const QuestionView = ({ player }) => {
   const [showPlayers, setShowPlayers] = useState(false);
   const [showAddPointsButton, setShowAddPointsButton] = useState(false);
   const [skipWaiting, setSkipWaiting] = useState(false);
+  const questionsLeft = localStorage.getItem("questions")
+    ? JSON.parse(localStorage.getItem("questions")).length - 1
+    : 0;
 
   useEffect(() => {
     const storedQuestions = localStorage.getItem("questions");
@@ -108,6 +111,12 @@ const QuestionView = ({ player }) => {
   return (
     <div className="card text-center" style={{ width: "100%" }}>
       <div className="card-header">
+        {questionsLeft >= 0 && (
+          <h6>
+            Pozostało jeszcze pytań:{" "}
+            <span className="badge text-primary text-end">{questionsLeft}</span>
+          </h6>
+        )}
         <h5 className="mb-0">
           <span className="text-secondary">Odpowiedzi udziela: </span>
           {player?.name}
