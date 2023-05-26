@@ -1,5 +1,3 @@
-// PlayerCard.js
-
 import React from "react";
 
 const PlayerCard = ({ player, onClick }) => {

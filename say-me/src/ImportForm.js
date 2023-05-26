@@ -1,4 +1,3 @@
-// ImportForm.js
 import React, { useState, useRef } from "react";
 import { saveData, loadData } from "./DataStorage";
 import Popup from "./Popup";
@@ -14,12 +13,38 @@ const ImportForm = () => {
 
   const handleLoadData = () => {
     try {
-      if (!jsonData) {
-        throw new Error("Wprowadź dane JSON.");
+      if (jsonData === "{}" || jsonData === "[]" || !jsonData) {
+        setPopupInfo({
+          message: "Wprowadź dane JSON.",
+          className: "danger",
+        });
+        return;
       }
 
       const parsedData = JSON.parse(jsonData);
-      console.log("Załadowane dane:", parsedData);
+
+      if (!Array.isArray(parsedData) || parsedData.length === 0) {
+        setPopupInfo({
+          message: "Dane JSON powinny być niepustą tablicą.",
+          className: "danger",
+        });
+        return;
+      }
+
+      parsedData.forEach((question) => {
+        if (
+          typeof question.kategoria !== "string" ||
+          typeof question.pytanie !== "string" ||
+          !Array.isArray(question.odpowiedzi) ||
+          !Array.isArray(question.poprawneOdpowiedzi)
+        ) {
+          setPopupInfo({
+            message: "Nieprawidłowa struktura danych JSON.",
+            className: "danger",
+          });
+          return;
+        }
+      });
 
       const existingData = loadData("questions") || [];
       const updatedData = [...existingData, ...parsedData];
@@ -30,22 +55,28 @@ const ImportForm = () => {
         className: "success",
       });
     } catch (error) {
-      console.error("Błąd wczytywania danych JSON:", error);
       setPopupInfo({
         message: `Błąd wczytywania danych JSON: ${error.message}. Spróbuj ponownie.`,
-        className: "error",
+        className: "danger",
       });
     }
   };
 
   const handleFileInputChange = (event) => {
-    const file = event.target.files[0];
-    const reader = new FileReader();
-    reader.onload = (e) => {
-      const fileContent = e.target.result;
-      setJsonData(fileContent);
-    };
-    reader.readAsText(file);
+    try {
+      const file = event.target.files[0];
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const fileContent = e.target.result;
+        setJsonData(fileContent);
+      };
+      reader.readAsText(file);
+    } catch (error) {
+      setPopupInfo({
+        message: `Błąd: ${error.message}. Spróbuj ponownie.`,
+        className: "error",
+      });
+    }
   };
 
   const handleFileLoad = () => {
@@ -63,7 +94,7 @@ const ImportForm = () => {
 
   return (
     <div>
-      <div className="d-flex ml-auto">
+      <div className="d-flex justify-content-center">
         <button className="btn btn-secondary ml-3" onClick={handleFileLoad}>
           Załaduj dane z pliku
         </button>
@@ -81,13 +112,13 @@ const ImportForm = () => {
           <label>Wklej dane w formacie JSON lub załaduj z pliku</label>
           <textarea
             className="form-control"
-            rows="4"
+            rows="20"
             value={jsonData}
             onChange={handleInputChange}
             placeholder="Wklej dane w formacie JSON"
           ></textarea>
         </div>
-        <div className="d-flex justify-content-end">
+        <div className="d-flex justify-content-center my-2">
           <button type="submit" className="btn btn-success">
             Załaduj dane
           </button>

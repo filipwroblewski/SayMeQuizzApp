@@ -1,7 +1,4 @@
-// SettingsForm.js
-
 import React, { useState, useEffect } from "react";
-import appSettings from "./appsettings";
 import Popup from "./Popup";
 
 const SettingsForm = ({ settings, onSettingsUpdate, onSaveSettings }) => {
@@ -17,25 +14,17 @@ const SettingsForm = ({ settings, onSettingsUpdate, onSaveSettings }) => {
   const [popupInfo, setPopupInfo] = useState(null);
 
   useEffect(() => {
-    const defaultPlayersNumber = settings.playersNumber.default;
-    const defaultQuestionsNumber = settings.questionsNumber.default;
-    const defaultSecondsLimit = settings.secondsLimit.default;
+    const storedPlayersNumber =
+      localStorage.getItem("playersNumber") || settings.playersNumber.default;
+    const storedQuestionsNumber =
+      localStorage.getItem("questionsNumber") ||
+      settings.questionsNumber.default;
+    const storedSecondsLimit =
+      localStorage.getItem("secondsLimit") || settings.secondsLimit.default;
 
-    const storedPlayersNumber = localStorage.getItem("playersNumber");
-    const storedQuestionsNumber = localStorage.getItem("questionsNumber");
-    const storedSecondsLimit = localStorage.getItem("secondsLimit");
-
-    const playersNumber = storedPlayersNumber || defaultPlayersNumber;
-    const questionsNumber = storedQuestionsNumber || defaultQuestionsNumber;
-    const secondsLimit = storedSecondsLimit || defaultSecondsLimit;
-
-    setPlayersNumber(playersNumber);
-    setQuestionsNumber(questionsNumber);
-    setSecondsLimit(secondsLimit);
-
-    localStorage.setItem("playersNumber", playersNumber);
-    localStorage.setItem("questionsNumber", questionsNumber);
-    localStorage.setItem("secondsLimit", secondsLimit);
+    setPlayersNumber(storedPlayersNumber);
+    setQuestionsNumber(storedQuestionsNumber);
+    setSecondsLimit(storedSecondsLimit);
   }, [settings]);
 
   const handlePlayersNumberChange = (event) => {
@@ -72,8 +61,8 @@ const SettingsForm = ({ settings, onSettingsUpdate, onSaveSettings }) => {
             <input
               type="range"
               className="form-control"
-              min={appSettings.playersNumber.min}
-              max={appSettings.playersNumber.max}
+              min={settings.playersNumber.min}
+              max={settings.playersNumber.max}
               value={playersNumber}
               onChange={handlePlayersNumberChange}
             />
@@ -90,8 +79,8 @@ const SettingsForm = ({ settings, onSettingsUpdate, onSaveSettings }) => {
             <input
               type="range"
               className="form-control"
-              min={appSettings.questionsNumber.min}
-              max={appSettings.questionsNumber.max}
+              min={settings.questionsNumber.min}
+              max={settings.questionsNumber.max}
               value={questionsNumber}
               onChange={handleQuestionsNumberChange}
             />
@@ -110,7 +99,7 @@ const SettingsForm = ({ settings, onSettingsUpdate, onSaveSettings }) => {
             <input
               type="number"
               className="form-control"
-              min={appSettings.secondsLimit.min}
+              min={settings.secondsLimit.min}
               value={secondsLimit}
               onChange={handleSecondsLimitChange}
             />

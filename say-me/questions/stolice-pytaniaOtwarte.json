@@ -1,0 +1,62 @@
+[
+  {
+    "kategoria": "Stolice",
+    "pytanie": "Jaka jest stolica Polski?",
+    "odpowiedzi": [""],
+    "poprawneOdpowiedzi": ["Warszawa"]
+  },
+  {
+    "kategoria": "Stolice",
+    "pytanie": "Jaka jest stolica Francji?",
+    "odpowiedzi": [""],
+    "poprawneOdpowiedzi": ["Paryż"]
+  },
+  {
+    "kategoria": "Stolice",
+    "pytanie": "Jaka jest stolica Wielkiej Brytanii?",
+    "odpowiedzi": [""],
+    "poprawneOdpowiedzi": ["Londyn"]
+  },
+  {
+    "kategoria": "Stolice",
+    "pytanie": "Jaka jest stolica Hiszpanii?",
+    "odpowiedzi": [""],
+    "poprawneOdpowiedzi": ["Madryt"]
+  },
+  {
+    "kategoria": "Stolice",
+    "pytanie": "Jaka jest stolica Niemiec?",
+    "odpowiedzi": [""],
+    "poprawneOdpowiedzi": ["Berlin"]
+  },
+  {
+    "kategoria": "Stolice",
+    "pytanie": "Jaka jest stolica Rosji?",
+    "odpowiedzi": [""],
+    "poprawneOdpowiedzi": ["Moskwa"]
+  },
+  {
+    "kategoria": "Stolice",
+    "pytanie": "Jaka jest stolica Chin?",
+    "odpowiedzi": [""],
+    "poprawneOdpowiedzi": ["Pekin"]
+  },
+  {
+    "kategoria": "Stolice",
+    "pytanie": "Jaka jest stolica Kanady?",
+    "odpowiedzi": [""],
+    "poprawneOdpowiedzi": ["Ottawa"]
+  },
+  {
+    "kategoria": "Stolice",
+    "pytanie": "Jaka jest stolica Australii?",
+    "odpowiedzi": [""],
+    "poprawneOdpowiedzi": ["Canberra"]
+  },
+  {
+    "kategoria": "Stolice",
+    "pytanie": "Jaka jest stolica Japonii?",
+    "odpowiedzi": [""],
+    "poprawneOdpowiedzi": ["Tokio"]
+  }
+]

@@ -1,21 +1,73 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ImportForm from "./ImportForm";
 import AddForm from "./AddForm";
-import { loadData, saveData, clearLocalStorage } from "./DataStorage";
+import { loadData, saveData } from "./DataStorage";
 import appSettings from "./appsettings";
 import SettingsForm from "./SettingsForm";
 import ShowMode from "./ShowMode";
 import Popup from "./Popup";
+import DataDisplay from "./DataDisplay";
+import Sidebar from "./Sidebar";
+import PlayersView from "./PlayersView";
 
 const ConfigurationMode = () => {
   const [showImportForm, setShowImportForm] = useState(false);
   const [showAddForm, setShowAddForm] = useState(false);
   const [storedData, setStoredData] = useState(null);
   const [isDataDisplayed, setIsDataDisplayed] = useState(false);
-  const [settingsUpdated, setSettingsUpdated] = useState(false);
+  const [setSettingsUpdated] = useState(false);
   const [settings, setSettings] = useState(appSettings);
-  const [isConfigurationMode, setIsConfigurationMode] = useState(true);
+  const [isShowMode, setIsShowMode] = useState(true);
   const [popupInfo, setPopupInfo] = useState(null);
+  const [showLoadPreviousGame, setShowLoadPreviousGame] = useState(false);
+  const [continueGame, setContinueGame] = useState(false);
+
+  useEffect(() => {
+    const playersNumber = localStorage.getItem("playersNumber");
+    const questionsNumber = localStorage.getItem("questionsNumber");
+    const secondsLimit = localStorage.getItem("secondsLimit");
+
+    if (!playersNumber) {
+      localStorage.setItem("playersNumber", appSettings.playersNumber.default);
+    }
+
+    if (!questionsNumber) {
+      localStorage.setItem(
+        "questionsNumber",
+        appSettings.questionsNumber.default
+      );
+    }
+
+    if (!secondsLimit) {
+      localStorage.setItem("secondsLimit", appSettings.secondsLimit.default);
+    }
+
+    const hasPreviousGame = Array.from(
+      { length: appSettings.playersNumber.max },
+      (_, i) => localStorage.getItem(`player${i}`)
+    ).some((player) => player !== null);
+
+    setShowLoadPreviousGame(hasPreviousGame);
+  }, []);
+
+  useEffect(() => {
+    const handleOutsideClick = (event) => {
+      if (
+        showLoadPreviousGame &&
+        !document
+          .getElementById("loadPreviousGameOffcanvas")
+          .contains(event.target)
+      ) {
+        setShowLoadPreviousGame(false);
+      }
+    };
+
+    document.addEventListener("click", handleOutsideClick);
+
+    return () => {
+      document.removeEventListener("click", handleOutsideClick);
+    };
+  }, [showLoadPreviousGame]);
 
   const handleImportClick = () => {
     setShowImportForm(!showImportForm);
@@ -48,6 +100,7 @@ const ConfigurationMode = () => {
 
   const handleClearLocalStorage = () => {
     localStorage.removeItem("questions");
+
     setStoredData(null);
     setIsDataDisplayed(false);
     setPopupInfo({
@@ -62,6 +115,12 @@ const ConfigurationMode = () => {
       message: "Pytanie zostało dodane",
       className: "primary",
     });
+  };
+
+  const handleLoadPreviousGame = () => {
+    setShowLoadPreviousGame(false);
+    setContinueGame(true);
+    setIsShowMode(false);
   };
 
   const handleExportData = () => {
@@ -108,128 +167,117 @@ const ConfigurationMode = () => {
   const handleSettingsUpdate = (updatedSettings) => {
     setSettings(updatedSettings);
     setSettingsUpdated(true);
-    settingsUpdated(true);
   };
 
-  const handleToggleConfigurationMode = () => {
-    setIsConfigurationMode(!isConfigurationMode);
+  const handleShowMode = () => {
+    const data = loadData("questions");
+    if (data?.length > 0) {
+      setIsShowMode(!isShowMode);
+    } else {
+      setPopupInfo({
+        message:
+          "Nie posiadasz jeszcze żadnych pytań. Dodaj pytania i spróbuj ponownie",
+        className: "danger",
+      });
+      setIsShowMode(isShowMode);
+    }
+  };
+
+  const handleCloseOffcanvas = () => {
+    setShowLoadPreviousGame(false);
   };
 
   return (
     <div className="container-fluid">
-      {isConfigurationMode ? (
+      {isShowMode ? (
         <>
           <div className="row">
             <div className="col-md-3 col-lg-2 d-md-block bg-light sidebar">
-              <div
-                className="d-flex flex-column flex-shrink-0 p-3 bg-light"
-                style={{ width: "280px" }}
-              >
-                <a
-                  href="/"
-                  className="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none"
-                >
-                  <span className="fs-4">Tryb konfiguracji</span>
-                </a>
-                <hr />
-                <ul className="nav nav-pills flex-column mb-auto">
-                  <li>
-                    <button
-                      className="btn btn-primary"
-                      onClick={handleImportClick}
-                    >
-                      {showImportForm
-                        ? "Schowaj formularz importu"
-                        : "Import zbiorczy"}
-                    </button>
-                  </li>
-                  <li>
-                    <button
-                      className="btn btn-primary ml-3"
-                      onClick={handleAddClick}
-                    >
-                      {showAddForm
-                        ? "Schowaj formularz dodawania pytania"
-                        : "Dodaj pytanie i odpowiedź"}
-                    </button>
-                  </li>
-                  <li>
-                    <button
-                      className="btn btn-secondary ml-3"
-                      onClick={handleDisplayData}
-                    >
-                      {isDataDisplayed ? "Schowaj pytania" : "Wyświetl pytania"}
-                    </button>
-                  </li>
-                  <li>
-                    <button
-                      className="btn btn-success ml-3"
-                      onClick={handleExportData}
-                    >
-                      Eksportuj
-                    </button>
-                  </li>
-                  <li>
-                    <button
-                      className="btn btn-danger ml-3"
-                      onClick={handleClearLocalStorage}
-                    >
-                      Resetuj
-                    </button>
-                  </li>
-                </ul>
-                <hr />
-                <strong>
-                  <button
-                    className="btn btn-primary ml-3"
-                    onClick={handleToggleConfigurationMode}
-                  >
-                    Uruchom tryb prezentacji
-                  </button>
-                </strong>
-              </div>
+              <Sidebar
+                showImportForm={showImportForm}
+                showAddForm={showAddForm}
+                isDataDisplayed={isDataDisplayed}
+                handleImportClick={handleImportClick}
+                handleAddClick={handleAddClick}
+                handleDisplayData={handleDisplayData}
+                handleExportData={handleExportData}
+                handleClearLocalStorage={handleClearLocalStorage}
+                handleShowMode={handleShowMode}
+              />
             </div>
-            <div className="col-md-9 ms-sm-auto col-lg-10 px-md-4 ">
-              <div>
+
+            <div className="col-md-9 col-lg-10">
+              <div className="d-flex justify-content-center align-items-center">
                 <SettingsForm
                   settings={settings}
                   onSettingsUpdate={handleSettingsUpdate}
                 />
               </div>
+            </div>
 
-              <div className="d-flex mt-3"></div>
-              {showImportForm && (
-                <div>
+            <div className="col-12">
+              <div className="d-flex justify-content-center align-items-center mt-3">
+                {showImportForm && (
                   <ImportForm onImportData={handleImportData} />
-                </div>
-              )}
-              {showAddForm && (
-                <div>
-                  <AddForm onAddQuestion={handleAddQuestion} />
-                </div>
-              )}
-              {storedData && isDataDisplayed && (
-                <div className="mt-4">
-                  <div className="card">
-                    <div className="card-body">
-                      <h4 className="card-title">Wyświetlone pytania:</h4>
-                      <pre className="card-text">
-                        {JSON.stringify(storedData, null, 2)}
-                      </pre>
-                    </div>
-                  </div>
-                </div>
-              )}
+                )}
+              </div>
+              <div className="d-flex justify-content-center align-items-center">
+                {showAddForm && <AddForm onAddQuestion={handleAddQuestion} />}
+              </div>
+              <div className="d-flex justify-content-center align-items-center mt-4">
+                {storedData && isDataDisplayed && (
+                  <DataDisplay storedData={storedData} />
+                )}
+              </div>
               {popupInfo && (
-                <Popup
-                  message={popupInfo.message}
-                  className={popupInfo.className}
-                  onClose={handlePopupClose}
-                />
+                <div className="d-flex justify-content-center mt-4">
+                  <Popup
+                    message={popupInfo.message}
+                    className={popupInfo.className}
+                    onClose={handlePopupClose}
+                  />
+                </div>
               )}
             </div>
           </div>
+
+          {showLoadPreviousGame && (
+            <div
+              className={`offcanvas offcanvas-start align-middle ${
+                showLoadPreviousGame ? "show" : ""
+              }`}
+              tabIndex="-1"
+              id="loadPreviousGameOffcanvas"
+              aria-labelledby="loadPreviousGameOffcanvasLabel"
+            >
+              <div className="offcanvas-header">
+                <h5
+                  className="offcanvas-title"
+                  id="loadPreviousGameOffcanvasLabel"
+                >
+                  Poprzednia rozgrywka została przerwana
+                </h5>
+                <button
+                  type="button"
+                  className="btn-close text-reset"
+                  data-bs-dismiss="offcanvas"
+                  aria-label="Close"
+                  onClick={handleCloseOffcanvas}
+                ></button>
+              </div>
+              <div className="offcanvas-body">
+                <button
+                  className="btn btn-primary px-2"
+                  onClick={handleLoadPreviousGame}
+                >
+                  Wczytaj poprzedni stan gry
+                </button>
+              </div>
+            </div>
+          )}
         </>
+      ) : continueGame ? (
+        <PlayersView />
       ) : (
         <ShowMode />
       )}

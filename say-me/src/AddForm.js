@@ -1,13 +1,11 @@
-// AddForm.js
-
 import React, { useState } from "react";
 import { saveData, loadData } from "./DataStorage";
 
 const AddForm = ({ onAddQuestion }) => {
   const [category, setCategory] = useState("");
   const [question, setQuestion] = useState("");
-  const [answers, setAnswers] = useState([]);
-  const [correctAnswers, setCorrectAnswers] = useState([]);
+  const [answers, setAnswers] = useState([""]);
+  const [correctAnswers, setCorrectAnswers] = useState([""]);
 
   const handleCategoryChange = (event) => {
     setCategory(event.target.value);
@@ -46,8 +44,16 @@ const AddForm = ({ onAddQuestion }) => {
 
     setCategory("");
     setQuestion("");
-    setAnswers([]);
-    setCorrectAnswers([]);
+    setAnswers([""]);
+    setCorrectAnswers([""]);
+  };
+
+  const handleAddAnswer = () => {
+    setAnswers([...answers, ""]);
+  };
+
+  const handleAddCorrectAnswer = () => {
+    setCorrectAnswers([...correctAnswers, ""]);
   };
 
   return (
@@ -55,29 +61,24 @@ const AddForm = ({ onAddQuestion }) => {
       <h4>Dodaj pytanie i odpowiedź</h4>
       <div className="form-group">
         <label>Kategoria:</label>
-        <div className="input-group">
-          <input
-            type="text"
-            className="form-control"
-            value={category}
-            onChange={handleCategoryChange}
-          />
-        </div>
+        <input
+          type="text"
+          className="form-control"
+          value={category}
+          onChange={handleCategoryChange}
+        />
       </div>
       <div className="form-group">
         <label>Pytanie:</label>
-        <div className="input-group">
-          <input
-            type="text"
-            className="form-control"
-            value={question}
-            onChange={handleQuestionChange}
-          />
-        </div>
+        <input
+          type="text"
+          className="form-control"
+          value={question}
+          onChange={handleQuestionChange}
+        />
       </div>
       <div className="form-group">
         <label>Odpowiedzi:</label>
-        <br />
         {answers.map((answer, index) => (
           <div className="input-group" key={index}>
             <input
@@ -88,16 +89,15 @@ const AddForm = ({ onAddQuestion }) => {
             />
           </div>
         ))}
-        <button
-          className="btn btn-secondary mt-2"
-          onClick={() => setAnswers([...answers, ""])}
-        >
-          Dodaj odpowiedź
-        </button>
+        <div className="d-flex justify-content-center mt-2">
+          {" "}
+          <button className="btn btn-secondary" onClick={handleAddAnswer}>
+            Dodaj odpowiedź
+          </button>
+        </div>
       </div>
-      <div className="form-group">
+      <div className="form-group pt-4">
         <label>Poprawne odpowiedzi:</label>
-        <br />
         {correctAnswers.map((answer, index) => (
           <div className="input-group" key={index}>
             <input
@@ -108,16 +108,22 @@ const AddForm = ({ onAddQuestion }) => {
             />
           </div>
         ))}
-        <button
-          className="btn btn-secondary mt-2"
-          onClick={() => setCorrectAnswers([...correctAnswers, ""])}
-        >
-          Dodaj poprawną odpowiedź
+        <div className="d-flex justify-content-center mt-2">
+          {" "}
+          <button
+            className="btn btn-secondary"
+            onClick={handleAddCorrectAnswer}
+          >
+            Dodaj poprawną odpowiedź
+          </button>
+        </div>
+      </div>
+      <div className="d-flex justify-content-center mt-2 pt-4">
+        {" "}
+        <button className="btn btn-success" onClick={handleAddQuestion}>
+          Dodaj pytanie
         </button>
       </div>
-      <button className="btn btn-success mt-2" onClick={handleAddQuestion}>
-        Dodaj pytanie
-      </button>
     </div>
   );
 };

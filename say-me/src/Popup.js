@@ -1,5 +1,3 @@
-// Popup.js
-
 import React, { useEffect } from "react";
 
 const Popup = ({ message, className, onClose }) => {

@@ -1,0 +1,73 @@
+[
+  {
+    "kategoria": "Samochody",
+    "pytanie": "Która marka samochodu jest znana ze sportowych modeli?",
+    "odpowiedzi": [],
+    "poprawneOdpowiedzi": ["B. Ferrari"]
+  },
+  {
+    "kategoria": "Samochody",
+    "pytanie": "Która marka samochodu jest znana ze sportowych modeli?",
+    "odpowiedzi": ["A. Mercedes-Benz", "B. Ferrari", "C. Toyota", "D. Ford"],
+    "poprawneOdpowiedzi": ["B. Ferrari"]
+  },
+  {
+    "kategoria": "Samochody",
+    "pytanie": "Która marka samochodu słynie z luksusowych limuzyn?",
+    "odpowiedzi": ["A. Audi", "B. BMW", "C. Jaguar", "D. Subaru"],
+    "poprawneOdpowiedzi": ["A. Audi", "B. BMW"]
+  },
+  {
+    "kategoria": "Samochody",
+    "pytanie": "Która marka samochodu jest powszechnie stosowana jako taksówki?",
+    "odpowiedzi": ["A. Volkswagen", "B. Toyota", "C. Honda", "D. Hyundai"],
+    "poprawneOdpowiedzi": ["A. Volkswagen", "B. Toyota"]
+  },
+  {
+    "kategoria": "Samochody",
+    "pytanie": "Która marka samochodu jest najpopularniejsza w Stanach Zjednoczonych?",
+    "odpowiedzi": ["A. Chevrolet", "B. Ford", "C. Dodge", "D. Jeep"],
+    "poprawneOdpowiedzi": ["A. Chevrolet", "B. Ford"]
+  },
+  {
+    "kategoria": "Samochody",
+    "pytanie": "Która marka samochodu jest specjalizowana w samochodach terenowych?",
+    "odpowiedzi": ["A. Land Rover", "B. Subaru", "C. Jeep", "D. Mitsubishi"],
+    "poprawneOdpowiedzi": ["A. Land Rover", "C. Jeep"]
+  },
+  {
+    "kategoria": "Samochody",
+    "pytanie": "Która marka samochodu jest znana z ekologicznych i hybrydowych modeli?",
+    "odpowiedzi": ["A. Tesla", "B. Nissan", "C. Honda", "D. Renault"],
+    "poprawneOdpowiedzi": ["A. Tesla", "C. Honda"]
+  },
+  {
+    "kategoria": "Samochody",
+    "pytanie": "Która marka samochodu jest najstarsza na świecie?",
+    "odpowiedzi": [
+      "A. Mercedes-Benz",
+      "B. Ford",
+      "C. Rolls-Royce",
+      "D. Peugeot"
+    ],
+    "poprawneOdpowiedzi": ["C. Rolls-Royce", "D. Peugeot"]
+  },
+  {
+    "kategoria": "Samochody",
+    "pytanie": "Która marka samochodu jest uważana za symbol luksusu i prestiżu?",
+    "odpowiedzi": ["A. Bentley", "B. Hyundai", "C. Kia", "D. Mazda"],
+    "poprawneOdpowiedzi": ["A. Bentley"]
+  },
+  {
+    "kategoria": "Samochody",
+    "pytanie": "Która marka samochodu jest znana z wysokiej niezawodności i trwałości?",
+    "odpowiedzi": ["A. Toyota", "B. Volkswagen", "C. Subaru", "D. Renault"],
+    "poprawneOdpowiedzi": ["A. Toyota", "B. Volkswagen"]
+  },
+  {
+    "kategoria": "Samochody",
+    "pytanie": "Która marka samochodu jest powszechnie stosowana jako pojazdy służbowe i flotowe?",
+    "odpowiedzi": ["A. Opel", "B. Peugeot", "C. Citroën", "D. Fiat"],
+    "poprawneOdpowiedzi": ["A. Opel", "B. Peugeot", "C. Citroën"]
+  }
+]

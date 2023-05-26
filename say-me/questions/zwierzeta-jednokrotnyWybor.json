@@ -1,0 +1,87 @@
+[
+  {
+    "kategoria": "Zwierzęta",
+    "pytanie": "Jakie zwierzę jest symbolem Chin?",
+    "odpowiedzi": ["A. Lew", "B. Tygrys", "C. Smok", "D. Słoń"],
+    "poprawneOdpowiedzi": ["C. Smok"]
+  },
+  {
+    "kategoria": "Zwierzęta",
+    "pytanie": "Które zwierzę jest największe na świecie?",
+    "odpowiedzi": [
+      "A. Słoń",
+      "B. Rekin wielorybi",
+      "C. Hipopotam",
+      "D. Nosorożec"
+    ],
+    "poprawneOdpowiedzi": ["B. Rekin wielorybi"]
+  },
+  {
+    "kategoria": "Zwierzęta",
+    "pytanie": "Ile nóg ma pająk?",
+    "odpowiedzi": ["A. 4", "B. 6", "C. 8", "D. 10"],
+    "poprawneOdpowiedzi": ["C. 8"]
+  },
+  {
+    "kategoria": "Zwierzęta",
+    "pytanie": "Jak nazywa się największy gatunek pandy?",
+    "odpowiedzi": [
+      "A. Panda wielka",
+      "B. Panda czerwona",
+      "C. Panda mała",
+      "D. Panda czarna"
+    ],
+    "poprawneOdpowiedzi": ["A. Panda wielka"]
+  },
+  {
+    "kategoria": "Zwierzęta",
+    "pytanie": "Gdzie żyją pingwiny?",
+    "odpowiedzi": [
+      "A. Arktyka",
+      "B. Antarktyda",
+      "C. Afryka",
+      "D. Ameryka Południowa"
+    ],
+    "poprawneOdpowiedzi": ["B. Antarktyda"]
+  },
+  {
+    "kategoria": "Zwierzęta",
+    "pytanie": "Jak nazywa się największy lądowy drapieżnik?",
+    "odpowiedzi": [
+      "A. Lampart",
+      "B. Lew",
+      "C. Niedźwiedź polarny",
+      "D. Tygrys"
+    ],
+    "poprawneOdpowiedzi": ["D. Tygrys"]
+  },
+  {
+    "kategoria": "Zwierzęta",
+    "pytanie": "Jakie zwierzę jest symbolem Australii?",
+    "odpowiedzi": ["A. Kangur", "B. Koala", "C. Wombat", "D. Emu"],
+    "poprawneOdpowiedzi": ["A. Kangur"]
+  },
+  {
+    "kategoria": "Zwierzęta",
+    "pytanie": "Jaki ptak potrafi chodzić tyłem?",
+    "odpowiedzi": ["A. Struś", "B. Kiwi", "C. Pelikan", "D. Papuga"],
+    "poprawneOdpowiedzi": ["B. Kiwi"]
+  },
+  {
+    "kategoria": "Zwierzęta",
+    "pytanie": "Ile oczu mają pająki?",
+    "odpowiedzi": ["A. 2", "B. 4", "C. 6", "D. 8"],
+    "poprawneOdpowiedzi": ["C. 6"]
+  },
+  {
+    "kategoria": "Zwierzęta",
+    "pytanie": "Jak nazywa się największy gatunek ryby na świecie?",
+    "odpowiedzi": [
+      "A. Rekin biały",
+      "B. Rekin wielorybi",
+      "C. Rekin tępogłowy",
+      "D. Rekin młot"
+    ],
+    "poprawneOdpowiedzi": ["B. Rekin wielorybi"]
+  }
+]

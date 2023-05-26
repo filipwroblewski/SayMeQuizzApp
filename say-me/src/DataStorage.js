@@ -1,5 +1,3 @@
-// DataStorage.js
-
 export const saveData = (key, data) => {
   try {
     const serializedData = JSON.stringify(data);

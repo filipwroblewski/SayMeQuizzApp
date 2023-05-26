@@ -1,0 +1,77 @@
+[
+  {
+    "kategoria": "Rośliny",
+    "pytanie": "Która roślina jest drzewem?",
+    "odpowiedzi": ["A. Klon", "B. Wiśnia", "C. Róża", "D. Lotos"],
+    "poprawneOdpowiedzi": ["A. Klon", "B. Wiśnia"]
+  },
+  {
+    "kategoria": "Rośliny",
+    "pytanie": "Która roślina jest kwiatem?",
+    "odpowiedzi": ["A. Klon", "B. Wiśnia", "C. Róża", "D. Lotos"],
+    "poprawneOdpowiedzi": ["C. Róża", "D. Lotos"]
+  },
+  {
+    "kategoria": "Rośliny",
+    "pytanie": "Która roślina jest trująca?",
+    "odpowiedzi": [
+      "A. Bluszcz",
+      "B. Wilcze jagody",
+      "C. Oleander",
+      "D. Trawa cytrynowa"
+    ],
+    "poprawneOdpowiedzi": ["B. Wilcze jagody", "C. Oleander"]
+  },
+  {
+    "kategoria": "Rośliny",
+    "pytanie": "Która roślina jest owocem?",
+    "odpowiedzi": ["A. Jabłoń", "B. Marchewka", "C. Truskawka", "D. Róża"],
+    "poprawneOdpowiedzi": ["A. Jabłoń", "C. Truskawka"]
+  },
+  {
+    "kategoria": "Rośliny",
+    "pytanie": "Która roślina jest pnączem?",
+    "odpowiedzi": [
+      "A. Bluszcz",
+      "B. Marchewka",
+      "C. Róża",
+      "D. Trawa cytrynowa"
+    ],
+    "poprawneOdpowiedzi": ["A. Bluszcz", "C. Róża"]
+  },
+  {
+    "kategoria": "Rośliny",
+    "pytanie": "Która roślina jest zielona?",
+    "odpowiedzi": ["A. Klon", "B. Wiśnia", "C. Róża", "D. Lotos"],
+    "poprawneOdpowiedzi": ["A. Klon", "C. Róża"]
+  },
+  {
+    "kategoria": "Rośliny",
+    "pytanie": "Która roślina jest jadalna?",
+    "odpowiedzi": ["A. Klon", "B. Wiśnia", "C. Róża", "D. Lotos"],
+    "poprawneOdpowiedzi": ["B. Wiśnia", "C. Róża"]
+  },
+  {
+    "kategoria": "Rośliny",
+    "pytanie": "Która roślina jest ozdobna?",
+    "odpowiedzi": ["A. Klon", "B. Wiśnia", "C. Róża", "D. Lotos"],
+    "poprawneOdpowiedzi": ["A. Klon", "C. Róża"]
+  },
+  {
+    "kategoria": "Rośliny",
+    "pytanie": "Która roślina jest aromatyczna?",
+    "odpowiedzi": ["A. Klon", "B. Wiśnia", "C. Róża", "D. Lotos"],
+    "poprawneOdpowiedzi": ["B. Wiśnia", "C. Róża"]
+  },
+  {
+    "kategoria": "Rośliny",
+    "pytanie": "Która roślina jest wodna?",
+    "odpowiedzi": [
+      "A. Lilia wodna",
+      "B. Jabłoń",
+      "C. Róża",
+      "D. Trawa cytrynowa"
+    ],
+    "poprawneOdpowiedzi": ["A. Lilia wodna", "D. Trawa cytrynowa"]
+  }
+]
